@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.12</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>eu.europeana</groupId>
+    <artifactId>poc-image-super-resolution</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>poc-image-super-resolution</name>
+    <description>poc-image-super-resolution</description>
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.sdk</groupId>
+            <artifactId>graal-sdk</artifactId>
+            <version>22.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230227</version>
+        </dependency>
+        <dependency>
+            <groupId>black.ninia</groupId>
+            <artifactId>jep</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+        </dependency>
+    </dependencies>
+    <profiles>
+        <profile>
+            <id>prepare-venv</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <executions>
+<!--                            enable executions for graalVM-->
+<!--                            <execution>-->
+<!--                                &lt;!&ndash;-->
+<!--                                 ! This execution creates the virtual environment-->
+<!--                                 ! to contain the Python packages that we will be-->
+<!--                                 ! using in the Java program.-->
+<!--                                  &ndash;&gt;-->
+<!--                                <id>Prepare venv</id>-->
+<!--                                <phase>generate-resources</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>exec</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <executable>${env.JAVA_HOME}/bin/graalpy</executable>-->
+<!--                                    <arguments>-->
+<!--                                        <argument>-m</argument>-->
+<!--                                        <argument>venv</argument>-->
+<!--                                        <argument>venv</argument>-->
+<!--                                    </arguments>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                            <execution>-->
+<!--                                <id>Install required packages into venv I</id>-->
+<!--                                <phase>generate-resources</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>exec</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <executable>${env.JAVA_HOME}/bin/graalpy</executable>-->
+<!--                                    <arguments>-->
+<!--                                        <argument>-m</argument>-->
+<!--                                        <argument>ginstall</argument>-->
+<!--                                        <argument>install</argument>-->
+<!--                                        <argument>numpy</argument>-->
+<!--                                    </arguments>-->
+<!--                                    <environmentVariables>-->
+<!--                                        <VIRTUAL_ENV>${project.basedir}/venv</VIRTUAL_ENV>-->
+<!--                                    </environmentVariables>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                            <execution>-->
+<!--                                &lt;!&ndash;-->
+<!--                                ! This execution installs the required-->
+<!--                                ! packages. To do so it simply calls the 'pip'-->
+<!--                                ! package manager inside the virtual environment-->
+<!--                                ! that we've created above.-->
+<!--                                 &ndash;&gt;-->
+<!--                                <id>Install required packages into venv II</id>-->
+<!--                                <phase>generate-resources</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>exec</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <executable>venv/bin/pip3</executable>-->
+<!--                                    <arguments>-->
+<!--                                        <argument>install</argument>-->
+<!--                                        <argument>Pillow</argument>-->
+<!--                                    </arguments>-->
+<!--                                    <environmentVariables>-->
+<!--                                        <VIRTUAL_ENV>${project.basedir}/venv</VIRTUAL_ENV>-->
+<!--                                    </environmentVariables>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                           Important!!!!: The tensorflow is not supported yet in this version of graalVM-->
+<!--                            is not possible to test ISR lib on graalVM until tensorflow is supported-->
+<!--                            <execution>-->
+<!--                                &lt;!&ndash;-->
+<!--                                ! This execution installs the required-->
+<!--                                ! packages. To do so it simply calls the 'pip'-->
+<!--                                ! package manager inside the virtual environment-->
+<!--                                ! that we've created above.-->
+<!--                                 &ndash;&gt;-->
+<!--                                <id>Install required packages into venv III</id>-->
+<!--                                <phase>generate-resources</phase>-->
+<!--                                <goals>-->
+<!--                                    <goal>exec</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <executable>venv/bin/pip3</executable>-->
+<!--                                    <arguments>-->
+<!--                                        <argument>install</argument>-->
+<!--                                        <argument>tensorflow==2.12.0</argument>-->
+<!--                                    </arguments>-->
+<!--                                    <environmentVariables>-->
+<!--                                        <VIRTUAL_ENV>${project.basedir}/venv</VIRTUAL_ENV>-->
+<!--                                    </environmentVariables>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <activation>
+                <file>
+                    <missing>venv/bin/pip</missing>
+                </file>
+            </activation>
+        </profile>
+        <profile>
+            <id>run</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>default-cli</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>${env.JAVA_HOME}/bin/java</executable>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath/>
+                                <argument>com.oracle.example.javapython.Main</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <activation>
+                <file>
+                    <exists>venv/bin/pip</exists>
+                </file>
+            </activation>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>enforce-graalvm-python</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireFilesExist>
+                                    <message>You must set JAVA_HOME to a GraalVM with Python installed.</message>
+                                    <files>
+                                        <file>${env.JAVA_HOME}/bin/graalpy</file>
+                                    </files>
+                                </requireFilesExist>
+                            </rules>
+                            <fail>true</fail>
+                            <failFast>true</failFast>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <resources>
+            <!--
+             ! We make sure to include the virtual environment and any additional
+             ! Python files with the build artifacts.
+              -->
+            <resource>
+                <directory>${project.basedir}</directory>
+                <includes>
+                    <include>venv/**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/</directory>
+                <includes>
+                    <include>*.py</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+
+    </build>
+
+
+</project>

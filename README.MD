@@ -134,11 +134,8 @@ Any contributions you make are appreciated.
 4. Push to the Branch (git push origin feature/AmazingFeature)
 5. Open a Pull Request
 
-# License
-private
-
 # Contact
-jeortiz.quan@gmail.com
+jorge.ortiz@europeana.eu
 
 # Acknowledgements
 Blessed are the merciful, for they will be shown mercy.

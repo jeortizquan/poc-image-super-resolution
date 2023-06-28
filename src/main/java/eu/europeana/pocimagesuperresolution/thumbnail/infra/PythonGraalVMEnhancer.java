@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * The type Python graal vm enhancer.
@@ -95,5 +96,10 @@ public class PythonGraalVMEnhancer implements ThumbnailEnhancer {
     @Override
     public String enhance(String input) {
         return createPythonEnhancer(model, input);
+    }
+
+    @Override
+    public List<String> enhance(List<String> inputFile) {
+        return null;
     }
 }

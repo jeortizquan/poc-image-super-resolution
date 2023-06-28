@@ -5,6 +5,8 @@ import eu.europeana.pocimagesuperresolution.thumbnail.domain.model.ThumbnailEnha
 import jep.Interpreter;
 import jep.SharedInterpreter;
 
+import java.util.List;
+
 /**
  * The type Python jep enhancer.
  */
@@ -50,5 +52,10 @@ public class PythonJepEnhancer implements ThumbnailEnhancer {
             return null;
         }
         return outputFile;
+    }
+
+    @Override
+    public List<String> enhance(List<String> inputFile) {
+        return null;
     }
 }

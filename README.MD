@@ -121,6 +121,7 @@ of the outer layers as much as possible.
 
 # Roadmap
 - [x] proof of concept.
+- [x] batch tests.
 - [ ] add swagger.
 - [ ] add spring boot actuator.
 - [ ] convert it to a library.

@@ -1,6 +1,7 @@
 package eu.europeana.pocimagesuperresolution.thumbnail.infra;
 
 import eu.europeana.pocimagesuperresolution.thumbnail.common.ResourceHandler;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -12,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PythonJepEnhancerTest {
 
-    @ParameterizedTest
-    @ValueSource(strings = {"RDN(weights='noise-cancel')"})
-    void givenPythonScript_whenPythonLibraryInvoked_thenSuccess(String model) {
+    @Test
+    void givenPythonScript_whenPythonLibraryInvoked_thenSuccess() {
+        final String model = "RDN(weights='noise-cancel')";
         // given
         final Path resourceDirectory = Paths.get("src", "test", "resources");
         final String absolutePath = resourceDirectory.toFile().getAbsolutePath();
         final ResourceHandler resourceHandler = new ResourceHandler(absolutePath);
-        final String testInputFile = resourceHandler.getResourceFile("img/lowres.jpg");
+        final String testInputFile = resourceHandler.getResourceFile("img/piggies.jpeg");
 
         // when
         PythonJepEnhancer jepEnhancer = new PythonJepEnhancer(resourceHandler, model);

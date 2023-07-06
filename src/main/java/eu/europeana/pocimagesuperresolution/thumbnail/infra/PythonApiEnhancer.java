@@ -35,7 +35,7 @@ public class PythonApiEnhancer implements ThumbnailEnhancer {
     public String enhance(String inputFile) {
         final URI uri;
         try {
-            uri = new URI(apiURL+"/srapi");
+            uri = new URI(apiURL+"/enhance/file");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return null;
@@ -54,7 +54,7 @@ public class PythonApiEnhancer implements ThumbnailEnhancer {
         final String response = restTemplate.postForObject(uri, httpEntity, String.class);
         final JSONObject jsonResponse = new JSONObject(response);
 
-        if (jsonResponse.has("message") && jsonResponse.get("message").equals("successful")) {
+        if (jsonResponse.has("description") && jsonResponse.get("description").equals("successful")) {
             return outputFile;
         } else {
             return null;
@@ -65,7 +65,7 @@ public class PythonApiEnhancer implements ThumbnailEnhancer {
     public List<String> enhance(List<String> inputFileList) {
         final URI uri;
         try {
-            uri = new URI(apiURL+"/srapibatch");
+            uri = new URI(apiURL+"/enhance/batchfile");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return null;
@@ -95,7 +95,7 @@ public class PythonApiEnhancer implements ThumbnailEnhancer {
         final String response = restTemplate.postForObject(uri, httpEntity, String.class);
         final JSONObject jsonResponse = new JSONObject(response);
 
-        if (jsonResponse.has("message") && jsonResponse.get("message").equals("successful")) {
+        if (jsonResponse.has("description") && jsonResponse.get("description").equals("successful")) {
             return outputFileList;
         } else {
             return null;
